@@ -40,12 +40,12 @@ func TestSetGet_RoundTrip(t *testing.T) {
 	store.Set("Hello", "world")
 
 	//call get("hello") assert if it returns ("world", true)
-	if val, ok := store.Get("Hello"); !ok || val != "world"{
+	if val, err := store.Get("Hello"); err != nil || val != "world"{
 		t.Error("Get() failed")
 	}
 
 	//call get("missing") assert if it returns ("", false)
-	if val, ok := store.Get("missing"); ok || val != ""{
+	if val, err := store.Get("missing"); err == nil || val != ""{
 		t.Error("Get() failed")
 	}
 

@@ -1,10 +1,15 @@
 package main
 
-import "sort"
+import (
+	"errors"
+	"sort"
+)
 
 type Store struct {
 	data map[string]string
 }
+
+var ErrKeyDoesNotExist = errors.New("Key does not exist")
 
 // returns every key in the store orted alphabeticaly
 func (s *Store) Keys() []string {
@@ -16,9 +21,12 @@ func (s *Store) Keys() []string {
 	return keys
 }
 
-func (s *Store) Get(key string) (string, bool) {
+func (s *Store) Get(key string) (string, error) {
 	val, ok := s.data[key]
-	return val, ok
+	if !ok {
+		return "", ErrKeyDoesNotExist
+	}
+	return val, nil
 }
 
 func (s *Store) Set(key, val string) {

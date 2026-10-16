@@ -9,7 +9,11 @@ func main() {
 	s.Set("a","42")
 	s.Set("b","50")
 	s.Del("a")
-	_, exists := s.Get("a")
-	fmt.Println(exists)
+
+	val , err := s.Get("a")
+	if err != nil{
+		fmt.Println(err)
+	}
+	fmt.Println(val)
 
 }
