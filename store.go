@@ -7,9 +7,11 @@ import (
 
 type Store struct {
 	data map[string]string
+	maxSize int
 }
 
 var ErrKeyDoesNotExist = errors.New("Key does not exist")
+var ErrEmptyKey = errors.New("Key is mandatory")
 
 // returns every key in the store orted alphabeticaly
 func (s *Store) Keys() []string {
@@ -22,6 +24,11 @@ func (s *Store) Keys() []string {
 }
 
 func (s *Store) Get(key string) (string, error) {
+
+	if key == ""{
+		return "", ErrEmptyKey
+	}
+
 	val, ok := s.data[key]
 	if !ok {
 		return "", ErrKeyDoesNotExist
@@ -37,8 +44,9 @@ func (s *Store) Del(key string) {
 	delete(s.data, key)
 }
 
-func NewStore() *Store {
+func NewStore(maxSize int) *Store {
 	return &Store{
 		make(map[string]string),
+		 maxSize,
 	}
 }

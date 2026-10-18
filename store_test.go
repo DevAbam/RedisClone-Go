@@ -50,3 +50,16 @@ func TestSetGet_RoundTrip(t *testing.T) {
 	}
 
 }
+
+func TestSetGet_EmptyKeys(t *testing.T) {
+	store := NewStore()
+	store.Set("z","zebra")
+
+	_, err := store.Get("")
+
+	if err != ErrEmptyKey{
+		t.Error("Get() failed")
+	}
+
+
+}

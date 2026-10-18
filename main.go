@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	s := NewStore()
+	s := NewStore(2)
 	s.Set("a","42")
 	s.Set("b","50")
 	s.Del("a")
